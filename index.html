@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Controller</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .video-feed {
+  width: 60%;
+  height: 300px;
+  background-color: #ddd;
+  margin: 0 auto; /* Center horizontally */
+  margin-bottom: 20px;
+}
+
+    .control-buttons {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+    .control-buttons button {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+    }
+    .control-buttons .forward {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .control-buttons .backward {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .control-buttons .left {
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    .control-buttons .right {
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+    .control-buttons .stop {
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background-color: red;
+      color: white;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container text-center mt-5">
+    <h1>RC Car Controller</h1>
+
+    <div class="form-group mt-4">
+      <label for="motorSpeed">Motor Speed Control</label>
+      <input type="range" class="form-control-range" id="motorSpeed" min="0" max="255">
+    </div>
+
+    <div class="video-feed"></div>
+
+    <div class="control-buttons">
+      <button class="btn btn-success forward">&#9650;</button> <!-- Up arrow -->
+      <button class="btn btn-success backward">&#9660;</button> <!-- Down arrow -->
+      <button class="btn btn-success left">&#9664;</button> <!-- Left arrow -->
+      <button class="btn btn-success right">&#9654;</button> <!-- Right arrow -->
+      <button class="btn stop">&#9723;</button> <!-- Stop button -->
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var espIP = '192.168.0.188'; // Replace with your ESP32 IP address
+      
+      $('.forward').click(function() {
+        console.log('Forward command sent');
+        $.get('http://' + espIP + '/Forward');
+      });
+  
+      $('.backward').click(function() {
+        console.log('Backward command sent');
+        $.get('http://' + espIP + '/Backward');
+      });
+  
+      $('.left').click(function() {
+        console.log('Left command sent');
+        $.get('http://' + espIP + '/Left');
+      });
+  
+      $('.right').click(function() {
+        console.log('Right command sent');
+        $.get('http://' + espIP + '/Right');
+      });
+  
+      $('.stop').click(function() {
+        console.log('Stop command sent');
+        $.get('http://' + espIP + '/Stop');
+      });
+  
+      $('#motorSpeed').on('input', function() {
+        var speed = $(this).val();
+        console.log('Motor speed set to: ' + speed);
+  
+        $.ajax({
+          url: 'http://' + espIP + '/updateMotorSpeed',
+          method: 'POST',
+          data: { speed: speed },
+          success: function(response) {
+            console.log('Motor speed updated successfully');
+          },
+          error: function(xhr, status, error) {
+            console.error('Error updating motor speed:', error);
+          }
+        });
+      });
+    });
+</script>
+</body>
+</html>
