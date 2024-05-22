@@ -89,27 +89,27 @@
       
       $('.forward').click(function() {
         console.log('Forward command sent');
-        $.get('http://' + espIP + '/Forward');
+        $.get('https://' + espIP + '/Forward'); // Change the protocol to HTTPS
       });
   
       $('.backward').click(function() {
         console.log('Backward command sent');
-        $.get('http://' + espIP + '/Backward');
+        $.get('https://' + espIP + '/Backward'); // Change the protocol to HTTPS
       });
   
       $('.left').click(function() {
         console.log('Left command sent');
-        $.get('http://' + espIP + '/Left');
+        $.get('https://' + espIP + '/Left'); // Change the protocol to HTTPS
       });
   
       $('.right').click(function() {
         console.log('Right command sent');
-        $.get('http://' + espIP + '/Right');
+        $.get('https://' + espIP + '/Right'); // Change the protocol to HTTPS
       });
   
       $('.stop').click(function() {
         console.log('Stop command sent');
-        $.get('http://' + espIP + '/Stop');
+        $.get('https://' + espIP + '/Stop'); // Change the protocol to HTTPS
       });
   
       $('#motorSpeed').on('input', function() {
@@ -117,7 +117,7 @@
         console.log('Motor speed set to: ' + speed);
   
         $.ajax({
-          url: 'http://' + espIP + '/updateMotorSpeed',
+          url: 'https://' + espIP + '/updateMotorSpeed', // Change the protocol to HTTPS
           method: 'POST',
           data: { speed: speed },
           success: function(response) {
@@ -130,5 +130,6 @@
       });
     });
 </script>
+
 </body>
 </html>
