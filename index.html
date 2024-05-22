@@ -60,7 +60,8 @@
   </style>
 </head>
 <body>
-  <div class="container text-center mt-5">
+  <!-- Your HTML content here -->
+   <div class="container text-center mt-5">
     <h1>RC Car Controller</h1>
 
     <div class="form-group mt-4">
@@ -89,27 +90,27 @@
       
       $('.forward').click(function() {
         console.log('Forward command sent');
-        $.get('https://' + espIP + '/Forward'); // Change the protocol to HTTPS
+        $.get('http://' + espIP + '/Forward'); // Change the protocol to HTTP
       });
   
       $('.backward').click(function() {
         console.log('Backward command sent');
-        $.get('https://' + espIP + '/Backward'); // Change the protocol to HTTPS
+        $.get('http://' + espIP + '/Backward'); // Change the protocol to HTTP
       });
   
       $('.left').click(function() {
         console.log('Left command sent');
-        $.get('https://' + espIP + '/Left'); // Change the protocol to HTTPS
+        $.get('http://' + espIP + '/Left'); // Change the protocol to HTTP
       });
   
       $('.right').click(function() {
         console.log('Right command sent');
-        $.get('https://' + espIP + '/Right'); // Change the protocol to HTTPS
+        $.get('http://' + espIP + '/Right'); // Change the protocol to HTTP
       });
   
       $('.stop').click(function() {
         console.log('Stop command sent');
-        $.get('https://' + espIP + '/Stop'); // Change the protocol to HTTPS
+        $.get('http://' + espIP + '/Stop'); // Change the protocol to HTTP
       });
   
       $('#motorSpeed').on('input', function() {
@@ -117,7 +118,7 @@
         console.log('Motor speed set to: ' + speed);
   
         $.ajax({
-          url: 'https://' + espIP + '/updateMotorSpeed', // Change the protocol to HTTPS
+          url: 'http://' + espIP + '/updateMotorSpeed', // Change the protocol to HTTP
           method: 'POST',
           data: { speed: speed },
           success: function(response) {
@@ -129,7 +130,6 @@
         });
       });
     });
-</script>
-
+  </script>
 </body>
 </html>
